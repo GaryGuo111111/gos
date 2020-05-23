@@ -1,52 +1,68 @@
 package com.taimei.gos.mapper;
 
-import org.junit.jupiter.api.Test;
+import com.taimei.gos.GosMbgApplication;
+import com.taimei.gos.model.AdminExample;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-class AdminMapperTest {
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = GosMbgApplication.class)
+public class AdminMapperTest {
+
+    @Autowired
+    AdminMapper adminMapper;
 
     @Test
-    void countByExample() {
+    public void countByExample() {
+        AdminExample adminExample = new AdminExample();
+        adminExample.createCriteria().andAdminIdEqualTo(1);
+        System.out.println(adminMapper);
+        long l = adminMapper.countByExample(adminExample);
+        System.out.println(l);
     }
 
     @Test
-    void deleteByExample() {
+    public void deleteByExample() {
     }
 
     @Test
-    void deleteByPrimaryKey() {
+    public void deleteByPrimaryKey() {
     }
 
     @Test
-    void insert() {
+    public void insert() {
     }
 
     @Test
-    void insertSelective() {
+    public void insertSelective() {
     }
 
     @Test
-    void selectByExample() {
+    public void selectByExample() {
     }
 
     @Test
-    void selectByPrimaryKey() {
+    public void selectByPrimaryKey() {
     }
 
     @Test
-    void updateByExampleSelective() {
+    public void updateByExampleSelective() {
     }
 
     @Test
-    void updateByExample() {
+    public void updateByExample() {
     }
 
     @Test
-    void updateByPrimaryKeySelective() {
+    public void updateByPrimaryKeySelective() {
     }
 
     @Test
-    void updateByPrimaryKey() {
+    public void updateByPrimaryKey() {
     }
 }

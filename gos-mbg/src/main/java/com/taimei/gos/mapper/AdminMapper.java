@@ -4,6 +4,7 @@ import com.taimei.gos.model.Admin;
 import com.taimei.gos.model.AdminExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 public interface AdminMapper {
     long countByExample(AdminExample example);

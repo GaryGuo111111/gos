@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taimei.gos.mapper.SysConfigMapper">
+  <resultMap id="BaseResultMap" type="com.taimei.gos.model.SysConfig">
+    <id column="k" jdbcType="VARCHAR" property="k" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="last_admin_id" jdbcType="INTEGER" property="lastAdminId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.taimei.gos.model.SysConfig">
+    <result column="v" jdbcType="LONGVARCHAR" property="v" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    k, remark, last_admin_id, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    v
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.taimei.gos.model.SysConfigExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.taimei.gos.model.SysConfigExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_config
+    where k = #{k,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_config
+    where k = #{k,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.taimei.gos.model.SysConfigExample">
+    delete from sys_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.taimei.gos.model.SysConfig">
+    insert into sys_config (k, remark, last_admin_id, 
+      update_time, v)
+    values (#{k,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{lastAdminId,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{v,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.taimei.gos.model.SysConfig">
+    insert into sys_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="k != null">
+        k,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="lastAdminId != null">
+        last_admin_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="v != null">
+        v,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="k != null">
+        #{k,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="lastAdminId != null">
+        #{lastAdminId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="v != null">
+        #{v,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.taimei.gos.model.SysConfigExample" resultType="java.lang.Long">
+    select count(*) from sys_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_config
+    <set>
+      <if test="record.k != null">
+        k = #{record.k,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastAdminId != null">
+        last_admin_id = #{record.lastAdminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.v != null">
+        v = #{record.v,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update sys_config
+    set k = #{record.k,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      last_admin_id = #{record.lastAdminId,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      v = #{record.v,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_config
+    set k = #{record.k,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      last_admin_id = #{record.lastAdminId,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.taimei.gos.model.SysConfig">
+    update sys_config
+    <set>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="lastAdminId != null">
+        last_admin_id = #{lastAdminId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="v != null">
+        v = #{v,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where k = #{k,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.taimei.gos.model.SysConfig">
+    update sys_config
+    set remark = #{remark,jdbcType=VARCHAR},
+      last_admin_id = #{lastAdminId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      v = #{v,jdbcType=LONGVARCHAR}
+    where k = #{k,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.taimei.gos.model.SysConfig">
+    update sys_config
+    set remark = #{remark,jdbcType=VARCHAR},
+      last_admin_id = #{lastAdminId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where k = #{k,jdbcType=VARCHAR}
+  </update>
+</mapper>
