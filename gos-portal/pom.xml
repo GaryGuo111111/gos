@@ -19,6 +19,10 @@
 			<groupId>com.taimei.gos</groupId>
 			<artifactId>gos-mbg</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.taimei.gos</groupId>
+			<artifactId>gos-security</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
