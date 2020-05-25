@@ -5,8 +5,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-@MapperScan({"com.taimei.gos.mapper"})
+@SpringBootApplication(scanBasePackages = "com.taimei.gos")
 public class GosPortalApplication {
 
 	public static void main(String[] args) {
