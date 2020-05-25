@@ -37,6 +37,7 @@
         <druid.version>1.1.22</druid.version>
         <lombok.version>1.18.10</lombok.version>
         <spring-data-commons.version>2.3.0.RELEASE</spring-data-commons.version>
+        <jjwt.version>0.9.1</jjwt.version>
         <gos-common.version>0.0.1-SNAPSHOT</gos-common.version>
         <gos-mbg.version>0.0.1-SNAPSHOT</gos-mbg.version>
         <gos-security.version>0.0.1-SNAPSHOT</gos-security.version>
@@ -159,6 +160,12 @@
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-commons</artifactId>
                 <version>${spring-data-commons.version}</version>
+            </dependency>
+            <!--JWT(Json Web Token)登录支持-->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
