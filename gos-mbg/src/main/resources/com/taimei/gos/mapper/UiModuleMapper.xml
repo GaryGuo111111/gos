@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taimei.gos.mapper.UiModuleMapper">
+  <resultMap id="BaseResultMap" type="com.taimei.gos.model.UiModule">
+    <id column="ui_module_id" jdbcType="INTEGER" property="uiModuleId" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="is_show" jdbcType="TINYINT" property="isShow" />
+    <result column="create_time" jdbcType="INTEGER" property="createTime" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="delete_time" jdbcType="INTEGER" property="deleteTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.taimei.gos.model.UiModule">
+    <result column="setting" jdbcType="LONGVARCHAR" property="setting" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ui_module_id, pid, name, type, is_show, create_time, is_delete, delete_time
+  </sql>
+  <sql id="Blob_Column_List">
+    setting, content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.taimei.gos.model.UiModuleExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ui_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.taimei.gos.model.UiModuleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ui_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ui_module
+    where ui_module_id = #{uiModuleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ui_module
+    where ui_module_id = #{uiModuleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.taimei.gos.model.UiModuleExample">
+    delete from ui_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.taimei.gos.model.UiModule">
+    insert into ui_module (ui_module_id, pid, name, 
+      type, is_show, create_time, 
+      is_delete, delete_time, setting, 
+      content)
+    values (#{uiModuleId,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{isShow,jdbcType=TINYINT}, #{createTime,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=TINYINT}, #{deleteTime,jdbcType=INTEGER}, #{setting,jdbcType=LONGVARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.taimei.gos.model.UiModule">
+    insert into ui_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uiModuleId != null">
+        ui_module_id,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="isShow != null">
+        is_show,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="deleteTime != null">
+        delete_time,
+      </if>
+      <if test="setting != null">
+        setting,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uiModuleId != null">
+        #{uiModuleId,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null">
+        #{isShow,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="deleteTime != null">
+        #{deleteTime,jdbcType=INTEGER},
+      </if>
+      <if test="setting != null">
+        #{setting,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.taimei.gos.model.UiModuleExample" resultType="java.lang.Long">
+    select count(*) from ui_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ui_module
+    <set>
+      <if test="record.uiModuleId != null">
+        ui_module_id = #{record.uiModuleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pid != null">
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isShow != null">
+        is_show = #{record.isShow,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="record.deleteTime != null">
+        delete_time = #{record.deleteTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.setting != null">
+        setting = #{record.setting,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ui_module
+    set ui_module_id = #{record.uiModuleId,jdbcType=INTEGER},
+      pid = #{record.pid,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      is_show = #{record.isShow,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=TINYINT},
+      delete_time = #{record.deleteTime,jdbcType=INTEGER},
+      setting = #{record.setting,jdbcType=LONGVARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ui_module
+    set ui_module_id = #{record.uiModuleId,jdbcType=INTEGER},
+      pid = #{record.pid,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      is_show = #{record.isShow,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=TINYINT},
+      delete_time = #{record.deleteTime,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.taimei.gos.model.UiModule">
+    update ui_module
+    <set>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null">
+        is_show = #{isShow,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="deleteTime != null">
+        delete_time = #{deleteTime,jdbcType=INTEGER},
+      </if>
+      <if test="setting != null">
+        setting = #{setting,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ui_module_id = #{uiModuleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.taimei.gos.model.UiModule">
+    update ui_module
+    set pid = #{pid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      is_show = #{isShow,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      delete_time = #{deleteTime,jdbcType=INTEGER},
+      setting = #{setting,jdbcType=LONGVARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where ui_module_id = #{uiModuleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.taimei.gos.model.UiModule">
+    update ui_module
+    set pid = #{pid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      is_show = #{isShow,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      delete_time = #{deleteTime,jdbcType=INTEGER}
+    where ui_module_id = #{uiModuleId,jdbcType=INTEGER}
+  </update>
+</mapper>

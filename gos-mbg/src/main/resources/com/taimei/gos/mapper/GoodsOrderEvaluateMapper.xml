@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taimei.gos.mapper.GoodsOrderEvaluateMapper">
+  <resultMap id="BaseResultMap" type="com.taimei.gos.model.GoodsOrderEvaluate">
+    <id column="goods_order_evaluate_id" jdbcType="INTEGER" property="goodsOrderEvaluateId" />
+    <result column="order_goods_id" jdbcType="INTEGER" property="orderGoodsId" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="is_anonymous" jdbcType="TINYINT" property="isAnonymous" />
+    <result column="scores" jdbcType="TINYINT" property="scores" />
+    <result column="create_time" jdbcType="INTEGER" property="createTime" />
+    <result column="is_show" jdbcType="TINYINT" property="isShow" />
+    <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.taimei.gos.model.GoodsOrderEvaluate">
+    <result column="data" jdbcType="LONGVARCHAR" property="data" />
+    <result column="picture_list" jdbcType="LONGVARCHAR" property="pictureList" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    goods_order_evaluate_id, order_goods_id, order_id, goods_id, user_id, is_anonymous, 
+    scores, create_time, is_show, admin_id
+  </sql>
+  <sql id="Blob_Column_List">
+    data, picture_list
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.taimei.gos.model.GoodsOrderEvaluateExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods_order_evaluate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.taimei.gos.model.GoodsOrderEvaluateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods_order_evaluate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods_order_evaluate
+    where goods_order_evaluate_id = #{goodsOrderEvaluateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from goods_order_evaluate
+    where goods_order_evaluate_id = #{goodsOrderEvaluateId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.taimei.gos.model.GoodsOrderEvaluateExample">
+    delete from goods_order_evaluate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.taimei.gos.model.GoodsOrderEvaluate">
+    insert into goods_order_evaluate (goods_order_evaluate_id, order_goods_id, 
+      order_id, goods_id, user_id, 
+      is_anonymous, scores, create_time, 
+      is_show, admin_id, data, 
+      picture_list)
+    values (#{goodsOrderEvaluateId,jdbcType=INTEGER}, #{orderGoodsId,jdbcType=INTEGER}, 
+      #{orderId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{isAnonymous,jdbcType=TINYINT}, #{scores,jdbcType=TINYINT}, #{createTime,jdbcType=INTEGER}, 
+      #{isShow,jdbcType=TINYINT}, #{adminId,jdbcType=INTEGER}, #{data,jdbcType=LONGVARCHAR}, 
+      #{pictureList,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.taimei.gos.model.GoodsOrderEvaluate">
+    insert into goods_order_evaluate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsOrderEvaluateId != null">
+        goods_order_evaluate_id,
+      </if>
+      <if test="orderGoodsId != null">
+        order_goods_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="isAnonymous != null">
+        is_anonymous,
+      </if>
+      <if test="scores != null">
+        scores,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="isShow != null">
+        is_show,
+      </if>
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="data != null">
+        data,
+      </if>
+      <if test="pictureList != null">
+        picture_list,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsOrderEvaluateId != null">
+        #{goodsOrderEvaluateId,jdbcType=INTEGER},
+      </if>
+      <if test="orderGoodsId != null">
+        #{orderGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isAnonymous != null">
+        #{isAnonymous,jdbcType=TINYINT},
+      </if>
+      <if test="scores != null">
+        #{scores,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isShow != null">
+        #{isShow,jdbcType=TINYINT},
+      </if>
+      <if test="adminId != null">
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="data != null">
+        #{data,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pictureList != null">
+        #{pictureList,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.taimei.gos.model.GoodsOrderEvaluateExample" resultType="java.lang.Long">
+    select count(*) from goods_order_evaluate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update goods_order_evaluate
+    <set>
+      <if test="record.goodsOrderEvaluateId != null">
+        goods_order_evaluate_id = #{record.goodsOrderEvaluateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderGoodsId != null">
+        order_goods_id = #{record.orderGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsId != null">
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isAnonymous != null">
+        is_anonymous = #{record.isAnonymous,jdbcType=TINYINT},
+      </if>
+      <if test="record.scores != null">
+        scores = #{record.scores,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.isShow != null">
+        is_show = #{record.isShow,jdbcType=TINYINT},
+      </if>
+      <if test="record.adminId != null">
+        admin_id = #{record.adminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.data != null">
+        data = #{record.data,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.pictureList != null">
+        picture_list = #{record.pictureList,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update goods_order_evaluate
+    set goods_order_evaluate_id = #{record.goodsOrderEvaluateId,jdbcType=INTEGER},
+      order_goods_id = #{record.orderGoodsId,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      is_anonymous = #{record.isAnonymous,jdbcType=TINYINT},
+      scores = #{record.scores,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=INTEGER},
+      is_show = #{record.isShow,jdbcType=TINYINT},
+      admin_id = #{record.adminId,jdbcType=INTEGER},
+      data = #{record.data,jdbcType=LONGVARCHAR},
+      picture_list = #{record.pictureList,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update goods_order_evaluate
+    set goods_order_evaluate_id = #{record.goodsOrderEvaluateId,jdbcType=INTEGER},
+      order_goods_id = #{record.orderGoodsId,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      is_anonymous = #{record.isAnonymous,jdbcType=TINYINT},
+      scores = #{record.scores,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=INTEGER},
+      is_show = #{record.isShow,jdbcType=TINYINT},
+      admin_id = #{record.adminId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.taimei.gos.model.GoodsOrderEvaluate">
+    update goods_order_evaluate
+    <set>
+      <if test="orderGoodsId != null">
+        order_goods_id = #{orderGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isAnonymous != null">
+        is_anonymous = #{isAnonymous,jdbcType=TINYINT},
+      </if>
+      <if test="scores != null">
+        scores = #{scores,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isShow != null">
+        is_show = #{isShow,jdbcType=TINYINT},
+      </if>
+      <if test="adminId != null">
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="data != null">
+        data = #{data,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pictureList != null">
+        picture_list = #{pictureList,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where goods_order_evaluate_id = #{goodsOrderEvaluateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.taimei.gos.model.GoodsOrderEvaluate">
+    update goods_order_evaluate
+    set order_goods_id = #{orderGoodsId,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      is_anonymous = #{isAnonymous,jdbcType=TINYINT},
+      scores = #{scores,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=INTEGER},
+      is_show = #{isShow,jdbcType=TINYINT},
+      admin_id = #{adminId,jdbcType=INTEGER},
+      data = #{data,jdbcType=LONGVARCHAR},
+      picture_list = #{pictureList,jdbcType=LONGVARCHAR}
+    where goods_order_evaluate_id = #{goodsOrderEvaluateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.taimei.gos.model.GoodsOrderEvaluate">
+    update goods_order_evaluate
+    set order_goods_id = #{orderGoodsId,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      is_anonymous = #{isAnonymous,jdbcType=TINYINT},
+      scores = #{scores,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=INTEGER},
+      is_show = #{isShow,jdbcType=TINYINT},
+      admin_id = #{adminId,jdbcType=INTEGER}
+    where goods_order_evaluate_id = #{goodsOrderEvaluateId,jdbcType=INTEGER}
+  </update>
+</mapper>

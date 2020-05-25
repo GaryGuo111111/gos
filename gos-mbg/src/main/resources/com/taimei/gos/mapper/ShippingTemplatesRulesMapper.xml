@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taimei.gos.mapper.ShippingTemplatesRulesMapper">
+  <resultMap id="BaseResultMap" type="com.taimei.gos.model.ShippingTemplatesRules">
+    <id column="shipping_templates_rules_id" jdbcType="INTEGER" property="shippingTemplatesRulesId" />
+    <result column="shipping_templates_id" jdbcType="INTEGER" property="shippingTemplatesId" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="is_send" jdbcType="TINYINT" property="isSend" />
+    <result column="price" jdbcType="BIGINT" property="price" />
+    <result column="create_time" jdbcType="INTEGER" property="createTime" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="delete_time" jdbcType="INTEGER" property="deleteTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    shipping_templates_rules_id, shipping_templates_id, code, is_send, price, create_time, 
+    is_delete, delete_time
+  </sql>
+  <select id="selectByExample" parameterType="com.taimei.gos.model.ShippingTemplatesRulesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shipping_templates_rules
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shipping_templates_rules
+    where shipping_templates_rules_id = #{shippingTemplatesRulesId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shipping_templates_rules
+    where shipping_templates_rules_id = #{shippingTemplatesRulesId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.taimei.gos.model.ShippingTemplatesRulesExample">
+    delete from shipping_templates_rules
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.taimei.gos.model.ShippingTemplatesRules">
+    insert into shipping_templates_rules (shipping_templates_rules_id, shipping_templates_id, 
+      code, is_send, price, 
+      create_time, is_delete, delete_time
+      )
+    values (#{shippingTemplatesRulesId,jdbcType=INTEGER}, #{shippingTemplatesId,jdbcType=INTEGER}, 
+      #{code,jdbcType=VARCHAR}, #{isSend,jdbcType=TINYINT}, #{price,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=INTEGER}, #{isDelete,jdbcType=TINYINT}, #{deleteTime,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.taimei.gos.model.ShippingTemplatesRules">
+    insert into shipping_templates_rules
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shippingTemplatesRulesId != null">
+        shipping_templates_rules_id,
+      </if>
+      <if test="shippingTemplatesId != null">
+        shipping_templates_id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="isSend != null">
+        is_send,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="deleteTime != null">
+        delete_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shippingTemplatesRulesId != null">
+        #{shippingTemplatesRulesId,jdbcType=INTEGER},
+      </if>
+      <if test="shippingTemplatesId != null">
+        #{shippingTemplatesId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="isSend != null">
+        #{isSend,jdbcType=TINYINT},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="deleteTime != null">
+        #{deleteTime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.taimei.gos.model.ShippingTemplatesRulesExample" resultType="java.lang.Long">
+    select count(*) from shipping_templates_rules
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update shipping_templates_rules
+    <set>
+      <if test="record.shippingTemplatesRulesId != null">
+        shipping_templates_rules_id = #{record.shippingTemplatesRulesId,jdbcType=INTEGER},
+      </if>
+      <if test="record.shippingTemplatesId != null">
+        shipping_templates_id = #{record.shippingTemplatesId,jdbcType=INTEGER},
+      </if>
+      <if test="record.code != null">
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isSend != null">
+        is_send = #{record.isSend,jdbcType=TINYINT},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="record.deleteTime != null">
+        delete_time = #{record.deleteTime,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update shipping_templates_rules
+    set shipping_templates_rules_id = #{record.shippingTemplatesRulesId,jdbcType=INTEGER},
+      shipping_templates_id = #{record.shippingTemplatesId,jdbcType=INTEGER},
+      code = #{record.code,jdbcType=VARCHAR},
+      is_send = #{record.isSend,jdbcType=TINYINT},
+      price = #{record.price,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=TINYINT},
+      delete_time = #{record.deleteTime,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.taimei.gos.model.ShippingTemplatesRules">
+    update shipping_templates_rules
+    <set>
+      <if test="shippingTemplatesId != null">
+        shipping_templates_id = #{shippingTemplatesId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="isSend != null">
+        is_send = #{isSend,jdbcType=TINYINT},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="deleteTime != null">
+        delete_time = #{deleteTime,jdbcType=INTEGER},
+      </if>
+    </set>
+    where shipping_templates_rules_id = #{shippingTemplatesRulesId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.taimei.gos.model.ShippingTemplatesRules">
+    update shipping_templates_rules
+    set shipping_templates_id = #{shippingTemplatesId,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR},
+      is_send = #{isSend,jdbcType=TINYINT},
+      price = #{price,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      delete_time = #{deleteTime,jdbcType=INTEGER}
+    where shipping_templates_rules_id = #{shippingTemplatesRulesId,jdbcType=INTEGER}
+  </update>
+</mapper>

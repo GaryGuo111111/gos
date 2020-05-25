@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taimei.gos.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.taimei.gos.model.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="supplier_id" jdbcType="INTEGER" property="supplierId" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="belong_shop_id" jdbcType="INTEGER" property="belongShopId" />
+    <result column="buy_level_id" jdbcType="INTEGER" property="buyLevelId" />
+    <result column="sale_level_id" jdbcType="INTEGER" property="saleLevelId" />
+    <result column="special_type" jdbcType="INTEGER" property="specialType" />
+    <result column="profit_ex_time" jdbcType="INTEGER" property="profitExTime" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="delete_time" jdbcType="INTEGER" property="deleteTime" />
+    <result column="is_freeze" jdbcType="TINYINT" property="isFreeze" />
+    <result column="create_time" jdbcType="INTEGER" property="createTime" />
+    <result column="pp_id" jdbcType="INTEGER" property="ppId" />
+    <result column="n_gold_id" jdbcType="INTEGER" property="nGoldId" />
+    <result column="n_diamond_id" jdbcType="INTEGER" property="nDiamondId" />
+    <result column="self_sale" jdbcType="BIGINT" property="selfSale" />
+    <result column="total_sale" jdbcType="BIGINT" property="totalSale" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.taimei.gos.model.User">
+    <result column="p20_ids" jdbcType="LONGVARCHAR" property="p20Ids" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_id, parent_id, supplier_id, mobile, password, nickname, avatar, real_name, belong_shop_id, 
+    buy_level_id, sale_level_id, special_type, profit_ex_time, is_delete, delete_time, 
+    is_freeze, create_time, pp_id, n_gold_id, n_diamond_id, self_sale, total_sale
+  </sql>
+  <sql id="Blob_Column_List">
+    p20_ids
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.taimei.gos.model.UserExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.taimei.gos.model.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.taimei.gos.model.UserExample">
+    delete from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.taimei.gos.model.User">
+    insert into user (user_id, parent_id, supplier_id, 
+      mobile, password, nickname, 
+      avatar, real_name, belong_shop_id, 
+      buy_level_id, sale_level_id, special_type, 
+      profit_ex_time, is_delete, delete_time, 
+      is_freeze, create_time, pp_id, 
+      n_gold_id, n_diamond_id, self_sale, 
+      total_sale, p20_ids)
+    values (#{userId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{supplierId,jdbcType=INTEGER}, 
+      #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{avatar,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{belongShopId,jdbcType=INTEGER}, 
+      #{buyLevelId,jdbcType=INTEGER}, #{saleLevelId,jdbcType=INTEGER}, #{specialType,jdbcType=INTEGER}, 
+      #{profitExTime,jdbcType=INTEGER}, #{isDelete,jdbcType=TINYINT}, #{deleteTime,jdbcType=INTEGER}, 
+      #{isFreeze,jdbcType=TINYINT}, #{createTime,jdbcType=INTEGER}, #{ppId,jdbcType=INTEGER}, 
+      #{nGoldId,jdbcType=INTEGER}, #{nDiamondId,jdbcType=INTEGER}, #{selfSale,jdbcType=BIGINT}, 
+      #{totalSale,jdbcType=BIGINT}, #{p20Ids,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.taimei.gos.model.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="supplierId != null">
+        supplier_id,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="belongShopId != null">
+        belong_shop_id,
+      </if>
+      <if test="buyLevelId != null">
+        buy_level_id,
+      </if>
+      <if test="saleLevelId != null">
+        sale_level_id,
+      </if>
+      <if test="specialType != null">
+        special_type,
+      </if>
+      <if test="profitExTime != null">
+        profit_ex_time,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="deleteTime != null">
+        delete_time,
+      </if>
+      <if test="isFreeze != null">
+        is_freeze,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="ppId != null">
+        pp_id,
+      </if>
+      <if test="nGoldId != null">
+        n_gold_id,
+      </if>
+      <if test="nDiamondId != null">
+        n_diamond_id,
+      </if>
+      <if test="selfSale != null">
+        self_sale,
+      </if>
+      <if test="totalSale != null">
+        total_sale,
+      </if>
+      <if test="p20Ids != null">
+        p20_ids,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null">
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="belongShopId != null">
+        #{belongShopId,jdbcType=INTEGER},
+      </if>
+      <if test="buyLevelId != null">
+        #{buyLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="saleLevelId != null">
+        #{saleLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="specialType != null">
+        #{specialType,jdbcType=INTEGER},
+      </if>
+      <if test="profitExTime != null">
+        #{profitExTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="deleteTime != null">
+        #{deleteTime,jdbcType=INTEGER},
+      </if>
+      <if test="isFreeze != null">
+        #{isFreeze,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="ppId != null">
+        #{ppId,jdbcType=INTEGER},
+      </if>
+      <if test="nGoldId != null">
+        #{nGoldId,jdbcType=INTEGER},
+      </if>
+      <if test="nDiamondId != null">
+        #{nDiamondId,jdbcType=INTEGER},
+      </if>
+      <if test="selfSale != null">
+        #{selfSale,jdbcType=BIGINT},
+      </if>
+      <if test="totalSale != null">
+        #{totalSale,jdbcType=BIGINT},
+      </if>
+      <if test="p20Ids != null">
+        #{p20Ids,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.taimei.gos.model.UserExample" resultType="java.lang.Long">
+    select count(*) from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user
+    <set>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.supplierId != null">
+        supplier_id = #{record.supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mobile != null">
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null">
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avatar != null">
+        avatar = #{record.avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realName != null">
+        real_name = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongShopId != null">
+        belong_shop_id = #{record.belongShopId,jdbcType=INTEGER},
+      </if>
+      <if test="record.buyLevelId != null">
+        buy_level_id = #{record.buyLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.saleLevelId != null">
+        sale_level_id = #{record.saleLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.specialType != null">
+        special_type = #{record.specialType,jdbcType=INTEGER},
+      </if>
+      <if test="record.profitExTime != null">
+        profit_ex_time = #{record.profitExTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="record.deleteTime != null">
+        delete_time = #{record.deleteTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.isFreeze != null">
+        is_freeze = #{record.isFreeze,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.ppId != null">
+        pp_id = #{record.ppId,jdbcType=INTEGER},
+      </if>
+      <if test="record.nGoldId != null">
+        n_gold_id = #{record.nGoldId,jdbcType=INTEGER},
+      </if>
+      <if test="record.nDiamondId != null">
+        n_diamond_id = #{record.nDiamondId,jdbcType=INTEGER},
+      </if>
+      <if test="record.selfSale != null">
+        self_sale = #{record.selfSale,jdbcType=BIGINT},
+      </if>
+      <if test="record.totalSale != null">
+        total_sale = #{record.totalSale,jdbcType=BIGINT},
+      </if>
+      <if test="record.p20Ids != null">
+        p20_ids = #{record.p20Ids,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update user
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      supplier_id = #{record.supplierId,jdbcType=INTEGER},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      avatar = #{record.avatar,jdbcType=VARCHAR},
+      real_name = #{record.realName,jdbcType=VARCHAR},
+      belong_shop_id = #{record.belongShopId,jdbcType=INTEGER},
+      buy_level_id = #{record.buyLevelId,jdbcType=INTEGER},
+      sale_level_id = #{record.saleLevelId,jdbcType=INTEGER},
+      special_type = #{record.specialType,jdbcType=INTEGER},
+      profit_ex_time = #{record.profitExTime,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=TINYINT},
+      delete_time = #{record.deleteTime,jdbcType=INTEGER},
+      is_freeze = #{record.isFreeze,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=INTEGER},
+      pp_id = #{record.ppId,jdbcType=INTEGER},
+      n_gold_id = #{record.nGoldId,jdbcType=INTEGER},
+      n_diamond_id = #{record.nDiamondId,jdbcType=INTEGER},
+      self_sale = #{record.selfSale,jdbcType=BIGINT},
+      total_sale = #{record.totalSale,jdbcType=BIGINT},
+      p20_ids = #{record.p20Ids,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      supplier_id = #{record.supplierId,jdbcType=INTEGER},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      avatar = #{record.avatar,jdbcType=VARCHAR},
+      real_name = #{record.realName,jdbcType=VARCHAR},
+      belong_shop_id = #{record.belongShopId,jdbcType=INTEGER},
+      buy_level_id = #{record.buyLevelId,jdbcType=INTEGER},
+      sale_level_id = #{record.saleLevelId,jdbcType=INTEGER},
+      special_type = #{record.specialType,jdbcType=INTEGER},
+      profit_ex_time = #{record.profitExTime,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=TINYINT},
+      delete_time = #{record.deleteTime,jdbcType=INTEGER},
+      is_freeze = #{record.isFreeze,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=INTEGER},
+      pp_id = #{record.ppId,jdbcType=INTEGER},
+      n_gold_id = #{record.nGoldId,jdbcType=INTEGER},
+      n_diamond_id = #{record.nDiamondId,jdbcType=INTEGER},
+      self_sale = #{record.selfSale,jdbcType=BIGINT},
+      total_sale = #{record.totalSale,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.taimei.gos.model.User">
+    update user
+    <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null">
+        supplier_id = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="belongShopId != null">
+        belong_shop_id = #{belongShopId,jdbcType=INTEGER},
+      </if>
+      <if test="buyLevelId != null">
+        buy_level_id = #{buyLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="saleLevelId != null">
+        sale_level_id = #{saleLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="specialType != null">
+        special_type = #{specialType,jdbcType=INTEGER},
+      </if>
+      <if test="profitExTime != null">
+        profit_ex_time = #{profitExTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="deleteTime != null">
+        delete_time = #{deleteTime,jdbcType=INTEGER},
+      </if>
+      <if test="isFreeze != null">
+        is_freeze = #{isFreeze,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="ppId != null">
+        pp_id = #{ppId,jdbcType=INTEGER},
+      </if>
+      <if test="nGoldId != null">
+        n_gold_id = #{nGoldId,jdbcType=INTEGER},
+      </if>
+      <if test="nDiamondId != null">
+        n_diamond_id = #{nDiamondId,jdbcType=INTEGER},
+      </if>
+      <if test="selfSale != null">
+        self_sale = #{selfSale,jdbcType=BIGINT},
+      </if>
+      <if test="totalSale != null">
+        total_sale = #{totalSale,jdbcType=BIGINT},
+      </if>
+      <if test="p20Ids != null">
+        p20_ids = #{p20Ids,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.taimei.gos.model.User">
+    update user
+    set parent_id = #{parentId,jdbcType=INTEGER},
+      supplier_id = #{supplierId,jdbcType=INTEGER},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      belong_shop_id = #{belongShopId,jdbcType=INTEGER},
+      buy_level_id = #{buyLevelId,jdbcType=INTEGER},
+      sale_level_id = #{saleLevelId,jdbcType=INTEGER},
+      special_type = #{specialType,jdbcType=INTEGER},
+      profit_ex_time = #{profitExTime,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      delete_time = #{deleteTime,jdbcType=INTEGER},
+      is_freeze = #{isFreeze,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=INTEGER},
+      pp_id = #{ppId,jdbcType=INTEGER},
+      n_gold_id = #{nGoldId,jdbcType=INTEGER},
+      n_diamond_id = #{nDiamondId,jdbcType=INTEGER},
+      self_sale = #{selfSale,jdbcType=BIGINT},
+      total_sale = #{totalSale,jdbcType=BIGINT},
+      p20_ids = #{p20Ids,jdbcType=LONGVARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.taimei.gos.model.User">
+    update user
+    set parent_id = #{parentId,jdbcType=INTEGER},
+      supplier_id = #{supplierId,jdbcType=INTEGER},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      belong_shop_id = #{belongShopId,jdbcType=INTEGER},
+      buy_level_id = #{buyLevelId,jdbcType=INTEGER},
+      sale_level_id = #{saleLevelId,jdbcType=INTEGER},
+      special_type = #{specialType,jdbcType=INTEGER},
+      profit_ex_time = #{profitExTime,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      delete_time = #{deleteTime,jdbcType=INTEGER},
+      is_freeze = #{isFreeze,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=INTEGER},
+      pp_id = #{ppId,jdbcType=INTEGER},
+      n_gold_id = #{nGoldId,jdbcType=INTEGER},
+      n_diamond_id = #{nDiamondId,jdbcType=INTEGER},
+      self_sale = #{selfSale,jdbcType=BIGINT},
+      total_sale = #{totalSale,jdbcType=BIGINT}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

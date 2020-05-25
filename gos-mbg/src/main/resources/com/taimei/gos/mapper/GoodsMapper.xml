@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taimei.gos.mapper.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.taimei.gos.model.Goods">
+    <id column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="goods_category_id" jdbcType="INTEGER" property="goodsCategoryId" />
+    <result column="profit_template_id" jdbcType="INTEGER" property="profitTemplateId" />
+    <result column="supplier_id" jdbcType="INTEGER" property="supplierId" />
+    <result column="has_relevance" jdbcType="TINYINT" property="hasRelevance" />
+    <result column="is_only_relevance" jdbcType="TINYINT" property="isOnlyRelevance" />
+    <result column="brand" jdbcType="VARCHAR" property="brand" />
+    <result column="profit_id" jdbcType="INTEGER" property="profitId" />
+    <result column="payment" jdbcType="INTEGER" property="payment" />
+    <result column="ui_module_area_id" jdbcType="INTEGER" property="uiModuleAreaId" />
+    <result column="special_type" jdbcType="INTEGER" property="specialType" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="market_price" jdbcType="BIGINT" property="marketPrice" />
+    <result column="discount_price" jdbcType="BIGINT" property="discountPrice" />
+    <result column="cost_price" jdbcType="BIGINT" property="costPrice" />
+    <result column="is_self" jdbcType="TINYINT" property="isSelf" />
+    <result column="show_time" jdbcType="INTEGER" property="showTime" />
+    <result column="begin_time" jdbcType="INTEGER" property="beginTime" />
+    <result column="end_time" jdbcType="INTEGER" property="endTime" />
+    <result column="is_max_buy" jdbcType="TINYINT" property="isMaxBuy" />
+    <result column="sales" jdbcType="INTEGER" property="sales" />
+    <result column="sales_virtual" jdbcType="INTEGER" property="salesVirtual" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="up_buy_level" jdbcType="INTEGER" property="upBuyLevel" />
+    <result column="create_time" jdbcType="INTEGER" property="createTime" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="delete_time" jdbcType="INTEGER" property="deleteTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.taimei.gos.model.Goods">
+    <result column="goods_attributes" jdbcType="LONGVARCHAR" property="goodsAttributes" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="pics" jdbcType="LONGVARCHAR" property="pics" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    goods_id, goods_category_id, profit_template_id, supplier_id, has_relevance, is_only_relevance, 
+    brand, profit_id, payment, ui_module_area_id, special_type, name, weight, introduction, 
+    market_price, discount_price, cost_price, is_self, show_time, begin_time, end_time, 
+    is_max_buy, sales, sales_virtual, sort, stock, up_buy_level, create_time, is_delete, 
+    delete_time
+  </sql>
+  <sql id="Blob_Column_List">
+    goods_attributes, content, pics
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.taimei.gos.model.GoodsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.taimei.gos.model.GoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.taimei.gos.model.GoodsExample">
+    delete from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.taimei.gos.model.Goods">
+    insert into goods (goods_id, goods_category_id, profit_template_id, 
+      supplier_id, has_relevance, is_only_relevance, 
+      brand, profit_id, payment, 
+      ui_module_area_id, special_type, name, 
+      weight, introduction, market_price, 
+      discount_price, cost_price, is_self, 
+      show_time, begin_time, end_time, 
+      is_max_buy, sales, sales_virtual, 
+      sort, stock, up_buy_level, 
+      create_time, is_delete, delete_time, 
+      goods_attributes, content, pics
+      )
+    values (#{goodsId,jdbcType=INTEGER}, #{goodsCategoryId,jdbcType=INTEGER}, #{profitTemplateId,jdbcType=INTEGER}, 
+      #{supplierId,jdbcType=INTEGER}, #{hasRelevance,jdbcType=TINYINT}, #{isOnlyRelevance,jdbcType=TINYINT}, 
+      #{brand,jdbcType=VARCHAR}, #{profitId,jdbcType=INTEGER}, #{payment,jdbcType=INTEGER}, 
+      #{uiModuleAreaId,jdbcType=INTEGER}, #{specialType,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{weight,jdbcType=INTEGER}, #{introduction,jdbcType=VARCHAR}, #{marketPrice,jdbcType=BIGINT}, 
+      #{discountPrice,jdbcType=BIGINT}, #{costPrice,jdbcType=BIGINT}, #{isSelf,jdbcType=TINYINT}, 
+      #{showTime,jdbcType=INTEGER}, #{beginTime,jdbcType=INTEGER}, #{endTime,jdbcType=INTEGER}, 
+      #{isMaxBuy,jdbcType=TINYINT}, #{sales,jdbcType=INTEGER}, #{salesVirtual,jdbcType=INTEGER}, 
+      #{sort,jdbcType=INTEGER}, #{stock,jdbcType=INTEGER}, #{upBuyLevel,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=INTEGER}, #{isDelete,jdbcType=TINYINT}, #{deleteTime,jdbcType=INTEGER}, 
+      #{goodsAttributes,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}, #{pics,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.taimei.gos.model.Goods">
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goodsCategoryId != null">
+        goods_category_id,
+      </if>
+      <if test="profitTemplateId != null">
+        profit_template_id,
+      </if>
+      <if test="supplierId != null">
+        supplier_id,
+      </if>
+      <if test="hasRelevance != null">
+        has_relevance,
+      </if>
+      <if test="isOnlyRelevance != null">
+        is_only_relevance,
+      </if>
+      <if test="brand != null">
+        brand,
+      </if>
+      <if test="profitId != null">
+        profit_id,
+      </if>
+      <if test="payment != null">
+        payment,
+      </if>
+      <if test="uiModuleAreaId != null">
+        ui_module_area_id,
+      </if>
+      <if test="specialType != null">
+        special_type,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="introduction != null">
+        introduction,
+      </if>
+      <if test="marketPrice != null">
+        market_price,
+      </if>
+      <if test="discountPrice != null">
+        discount_price,
+      </if>
+      <if test="costPrice != null">
+        cost_price,
+      </if>
+      <if test="isSelf != null">
+        is_self,
+      </if>
+      <if test="showTime != null">
+        show_time,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="isMaxBuy != null">
+        is_max_buy,
+      </if>
+      <if test="sales != null">
+        sales,
+      </if>
+      <if test="salesVirtual != null">
+        sales_virtual,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="upBuyLevel != null">
+        up_buy_level,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="deleteTime != null">
+        delete_time,
+      </if>
+      <if test="goodsAttributes != null">
+        goods_attributes,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="pics != null">
+        pics,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsCategoryId != null">
+        #{goodsCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="profitTemplateId != null">
+        #{profitTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null">
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="hasRelevance != null">
+        #{hasRelevance,jdbcType=TINYINT},
+      </if>
+      <if test="isOnlyRelevance != null">
+        #{isOnlyRelevance,jdbcType=TINYINT},
+      </if>
+      <if test="brand != null">
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="profitId != null">
+        #{profitId,jdbcType=INTEGER},
+      </if>
+      <if test="payment != null">
+        #{payment,jdbcType=INTEGER},
+      </if>
+      <if test="uiModuleAreaId != null">
+        #{uiModuleAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="specialType != null">
+        #{specialType,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="introduction != null">
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null">
+        #{marketPrice,jdbcType=BIGINT},
+      </if>
+      <if test="discountPrice != null">
+        #{discountPrice,jdbcType=BIGINT},
+      </if>
+      <if test="costPrice != null">
+        #{costPrice,jdbcType=BIGINT},
+      </if>
+      <if test="isSelf != null">
+        #{isSelf,jdbcType=TINYINT},
+      </if>
+      <if test="showTime != null">
+        #{showTime,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=INTEGER},
+      </if>
+      <if test="isMaxBuy != null">
+        #{isMaxBuy,jdbcType=TINYINT},
+      </if>
+      <if test="sales != null">
+        #{sales,jdbcType=INTEGER},
+      </if>
+      <if test="salesVirtual != null">
+        #{salesVirtual,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="upBuyLevel != null">
+        #{upBuyLevel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="deleteTime != null">
+        #{deleteTime,jdbcType=INTEGER},
+      </if>
+      <if test="goodsAttributes != null">
+        #{goodsAttributes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pics != null">
+        #{pics,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.taimei.gos.model.GoodsExample" resultType="java.lang.Long">
+    select count(*) from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update goods
+    <set>
+      <if test="record.goodsId != null">
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsCategoryId != null">
+        goods_category_id = #{record.goodsCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.profitTemplateId != null">
+        profit_template_id = #{record.profitTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.supplierId != null">
+        supplier_id = #{record.supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hasRelevance != null">
+        has_relevance = #{record.hasRelevance,jdbcType=TINYINT},
+      </if>
+      <if test="record.isOnlyRelevance != null">
+        is_only_relevance = #{record.isOnlyRelevance,jdbcType=TINYINT},
+      </if>
+      <if test="record.brand != null">
+        brand = #{record.brand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.profitId != null">
+        profit_id = #{record.profitId,jdbcType=INTEGER},
+      </if>
+      <if test="record.payment != null">
+        payment = #{record.payment,jdbcType=INTEGER},
+      </if>
+      <if test="record.uiModuleAreaId != null">
+        ui_module_area_id = #{record.uiModuleAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.specialType != null">
+        special_type = #{record.specialType,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=INTEGER},
+      </if>
+      <if test="record.introduction != null">
+        introduction = #{record.introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.marketPrice != null">
+        market_price = #{record.marketPrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.discountPrice != null">
+        discount_price = #{record.discountPrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.costPrice != null">
+        cost_price = #{record.costPrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.isSelf != null">
+        is_self = #{record.isSelf,jdbcType=TINYINT},
+      </if>
+      <if test="record.showTime != null">
+        show_time = #{record.showTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.beginTime != null">
+        begin_time = #{record.beginTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.isMaxBuy != null">
+        is_max_buy = #{record.isMaxBuy,jdbcType=TINYINT},
+      </if>
+      <if test="record.sales != null">
+        sales = #{record.sales,jdbcType=INTEGER},
+      </if>
+      <if test="record.salesVirtual != null">
+        sales_virtual = #{record.salesVirtual,jdbcType=INTEGER},
+      </if>
+      <if test="record.sort != null">
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.stock != null">
+        stock = #{record.stock,jdbcType=INTEGER},
+      </if>
+      <if test="record.upBuyLevel != null">
+        up_buy_level = #{record.upBuyLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="record.deleteTime != null">
+        delete_time = #{record.deleteTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsAttributes != null">
+        goods_attributes = #{record.goodsAttributes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.pics != null">
+        pics = #{record.pics,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update goods
+    set goods_id = #{record.goodsId,jdbcType=INTEGER},
+      goods_category_id = #{record.goodsCategoryId,jdbcType=INTEGER},
+      profit_template_id = #{record.profitTemplateId,jdbcType=INTEGER},
+      supplier_id = #{record.supplierId,jdbcType=INTEGER},
+      has_relevance = #{record.hasRelevance,jdbcType=TINYINT},
+      is_only_relevance = #{record.isOnlyRelevance,jdbcType=TINYINT},
+      brand = #{record.brand,jdbcType=VARCHAR},
+      profit_id = #{record.profitId,jdbcType=INTEGER},
+      payment = #{record.payment,jdbcType=INTEGER},
+      ui_module_area_id = #{record.uiModuleAreaId,jdbcType=INTEGER},
+      special_type = #{record.specialType,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=INTEGER},
+      introduction = #{record.introduction,jdbcType=VARCHAR},
+      market_price = #{record.marketPrice,jdbcType=BIGINT},
+      discount_price = #{record.discountPrice,jdbcType=BIGINT},
+      cost_price = #{record.costPrice,jdbcType=BIGINT},
+      is_self = #{record.isSelf,jdbcType=TINYINT},
+      show_time = #{record.showTime,jdbcType=INTEGER},
+      begin_time = #{record.beginTime,jdbcType=INTEGER},
+      end_time = #{record.endTime,jdbcType=INTEGER},
+      is_max_buy = #{record.isMaxBuy,jdbcType=TINYINT},
+      sales = #{record.sales,jdbcType=INTEGER},
+      sales_virtual = #{record.salesVirtual,jdbcType=INTEGER},
+      sort = #{record.sort,jdbcType=INTEGER},
+      stock = #{record.stock,jdbcType=INTEGER},
+      up_buy_level = #{record.upBuyLevel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=TINYINT},
+      delete_time = #{record.deleteTime,jdbcType=INTEGER},
+      goods_attributes = #{record.goodsAttributes,jdbcType=LONGVARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR},
+      pics = #{record.pics,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update goods
+    set goods_id = #{record.goodsId,jdbcType=INTEGER},
+      goods_category_id = #{record.goodsCategoryId,jdbcType=INTEGER},
+      profit_template_id = #{record.profitTemplateId,jdbcType=INTEGER},
+      supplier_id = #{record.supplierId,jdbcType=INTEGER},
+      has_relevance = #{record.hasRelevance,jdbcType=TINYINT},
+      is_only_relevance = #{record.isOnlyRelevance,jdbcType=TINYINT},
+      brand = #{record.brand,jdbcType=VARCHAR},
+      profit_id = #{record.profitId,jdbcType=INTEGER},
+      payment = #{record.payment,jdbcType=INTEGER},
+      ui_module_area_id = #{record.uiModuleAreaId,jdbcType=INTEGER},
+      special_type = #{record.specialType,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=INTEGER},
+      introduction = #{record.introduction,jdbcType=VARCHAR},
+      market_price = #{record.marketPrice,jdbcType=BIGINT},
+      discount_price = #{record.discountPrice,jdbcType=BIGINT},
+      cost_price = #{record.costPrice,jdbcType=BIGINT},
+      is_self = #{record.isSelf,jdbcType=TINYINT},
+      show_time = #{record.showTime,jdbcType=INTEGER},
+      begin_time = #{record.beginTime,jdbcType=INTEGER},
+      end_time = #{record.endTime,jdbcType=INTEGER},
+      is_max_buy = #{record.isMaxBuy,jdbcType=TINYINT},
+      sales = #{record.sales,jdbcType=INTEGER},
+      sales_virtual = #{record.salesVirtual,jdbcType=INTEGER},
+      sort = #{record.sort,jdbcType=INTEGER},
+      stock = #{record.stock,jdbcType=INTEGER},
+      up_buy_level = #{record.upBuyLevel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=TINYINT},
+      delete_time = #{record.deleteTime,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.taimei.gos.model.Goods">
+    update goods
+    <set>
+      <if test="goodsCategoryId != null">
+        goods_category_id = #{goodsCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="profitTemplateId != null">
+        profit_template_id = #{profitTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null">
+        supplier_id = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="hasRelevance != null">
+        has_relevance = #{hasRelevance,jdbcType=TINYINT},
+      </if>
+      <if test="isOnlyRelevance != null">
+        is_only_relevance = #{isOnlyRelevance,jdbcType=TINYINT},
+      </if>
+      <if test="brand != null">
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="profitId != null">
+        profit_id = #{profitId,jdbcType=INTEGER},
+      </if>
+      <if test="payment != null">
+        payment = #{payment,jdbcType=INTEGER},
+      </if>
+      <if test="uiModuleAreaId != null">
+        ui_module_area_id = #{uiModuleAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="specialType != null">
+        special_type = #{specialType,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="introduction != null">
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null">
+        market_price = #{marketPrice,jdbcType=BIGINT},
+      </if>
+      <if test="discountPrice != null">
+        discount_price = #{discountPrice,jdbcType=BIGINT},
+      </if>
+      <if test="costPrice != null">
+        cost_price = #{costPrice,jdbcType=BIGINT},
+      </if>
+      <if test="isSelf != null">
+        is_self = #{isSelf,jdbcType=TINYINT},
+      </if>
+      <if test="showTime != null">
+        show_time = #{showTime,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=INTEGER},
+      </if>
+      <if test="isMaxBuy != null">
+        is_max_buy = #{isMaxBuy,jdbcType=TINYINT},
+      </if>
+      <if test="sales != null">
+        sales = #{sales,jdbcType=INTEGER},
+      </if>
+      <if test="salesVirtual != null">
+        sales_virtual = #{salesVirtual,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="upBuyLevel != null">
+        up_buy_level = #{upBuyLevel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="deleteTime != null">
+        delete_time = #{deleteTime,jdbcType=INTEGER},
+      </if>
+      <if test="goodsAttributes != null">
+        goods_attributes = #{goodsAttributes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pics != null">
+        pics = #{pics,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.taimei.gos.model.Goods">
+    update goods
+    set goods_category_id = #{goodsCategoryId,jdbcType=INTEGER},
+      profit_template_id = #{profitTemplateId,jdbcType=INTEGER},
+      supplier_id = #{supplierId,jdbcType=INTEGER},
+      has_relevance = #{hasRelevance,jdbcType=TINYINT},
+      is_only_relevance = #{isOnlyRelevance,jdbcType=TINYINT},
+      brand = #{brand,jdbcType=VARCHAR},
+      profit_id = #{profitId,jdbcType=INTEGER},
+      payment = #{payment,jdbcType=INTEGER},
+      ui_module_area_id = #{uiModuleAreaId,jdbcType=INTEGER},
+      special_type = #{specialType,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=INTEGER},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      market_price = #{marketPrice,jdbcType=BIGINT},
+      discount_price = #{discountPrice,jdbcType=BIGINT},
+      cost_price = #{costPrice,jdbcType=BIGINT},
+      is_self = #{isSelf,jdbcType=TINYINT},
+      show_time = #{showTime,jdbcType=INTEGER},
+      begin_time = #{beginTime,jdbcType=INTEGER},
+      end_time = #{endTime,jdbcType=INTEGER},
+      is_max_buy = #{isMaxBuy,jdbcType=TINYINT},
+      sales = #{sales,jdbcType=INTEGER},
+      sales_virtual = #{salesVirtual,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      stock = #{stock,jdbcType=INTEGER},
+      up_buy_level = #{upBuyLevel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      delete_time = #{deleteTime,jdbcType=INTEGER},
+      goods_attributes = #{goodsAttributes,jdbcType=LONGVARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      pics = #{pics,jdbcType=LONGVARCHAR}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.taimei.gos.model.Goods">
+    update goods
+    set goods_category_id = #{goodsCategoryId,jdbcType=INTEGER},
+      profit_template_id = #{profitTemplateId,jdbcType=INTEGER},
+      supplier_id = #{supplierId,jdbcType=INTEGER},
+      has_relevance = #{hasRelevance,jdbcType=TINYINT},
+      is_only_relevance = #{isOnlyRelevance,jdbcType=TINYINT},
+      brand = #{brand,jdbcType=VARCHAR},
+      profit_id = #{profitId,jdbcType=INTEGER},
+      payment = #{payment,jdbcType=INTEGER},
+      ui_module_area_id = #{uiModuleAreaId,jdbcType=INTEGER},
+      special_type = #{specialType,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=INTEGER},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      market_price = #{marketPrice,jdbcType=BIGINT},
+      discount_price = #{discountPrice,jdbcType=BIGINT},
+      cost_price = #{costPrice,jdbcType=BIGINT},
+      is_self = #{isSelf,jdbcType=TINYINT},
+      show_time = #{showTime,jdbcType=INTEGER},
+      begin_time = #{beginTime,jdbcType=INTEGER},
+      end_time = #{endTime,jdbcType=INTEGER},
+      is_max_buy = #{isMaxBuy,jdbcType=TINYINT},
+      sales = #{sales,jdbcType=INTEGER},
+      sales_virtual = #{salesVirtual,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      stock = #{stock,jdbcType=INTEGER},
+      up_buy_level = #{upBuyLevel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      delete_time = #{deleteTime,jdbcType=INTEGER}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+</mapper>
