@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taimei.gos.dao.AdminRoleDao">
+
+    <select id="getResourceList" resultType="com.taimei.gos.model.AResource">
+        SELECT
+            ar.a_resource_id aResourceId,
+            ar.resource_name resourceName,
+            ar.action action,
+            ar.create_time createTime,
+            ar.is_delete isDelete,
+            ar.delete_time deleteTime
+        FROM
+            admin_role ar
+        LEFT JOIN a_role r ON ar.role_id = r.role_id
+        LEFT JOIN role_resource rr ON r.role_id = rr.role_id
+        LEFT JOIN a_resource ar ON ar.a_resource_id = rr.a_resource_id
+        WHERE
+            ar.admin_id = #{adminId}
+        AND ar.a_resource_id IS NOT NULL
+        GROUP BY
+            ar.a_resource_id
+    </select>
+</mapper>

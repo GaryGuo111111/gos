@@ -10,6 +10,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan({"com.taimei.gos.mapper"})
+@MapperScan({"com.taimei.gos.mapper","com.taimei.gos.admin.dao"})
 public class MyBatisConfig {
 }

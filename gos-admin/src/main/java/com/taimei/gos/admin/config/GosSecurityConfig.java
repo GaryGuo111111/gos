@@ -1,5 +1,8 @@
 package com.taimei.gos.admin.config;
 
+import com.taimei.gos.admin.service.AResourceService;
+import com.taimei.gos.admin.service.AdminService;
+import com.taimei.gos.model.AResource;
 import com.taimei.gos.security.component.DynamicSecurityService;
 import com.taimei.gos.security.config.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,31 +26,29 @@ import java.util.concurrent.ConcurrentHashMap;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class GosSecurityConfig extends SecurityConfig {
     @Autowired
-//    private UmsAdminService adminService;
-//    @Autowired
-//    private UmsResourceService resourceService;
+    private AdminService adminService;
+    @Autowired
+    private AResourceService aResourceService;
 
     @Override
     @Bean
     public UserDetailsService userDetailsService() {
         //获取登录用户信息
-//        return username -> adminService.loadUserByUsername(username);
-        return null;
+        return username -> adminService.loadUserByUsername(username);
     }
 
     @Bean
     public DynamicSecurityService dynamicSecurityService() {
-//        return new DynamicSecurityService() {
-//            @Override
-//            public Map<String, ConfigAttribute> loadDataSource() {
-//                Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
-//                List<UmsResource> resourceList = resourceService.listAll();
-//                for (UmsResource resource : resourceList) {
-//                    map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
-//                }
-//                return map;
-//            }
-//        };
-        return null;
+        return new DynamicSecurityService() {
+            @Override
+            public Map<String, ConfigAttribute> loadDataSource() {
+                Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
+                List<AResource> resourceList = aResourceService.listAll();
+                for (AResource resource : resourceList) {
+                    map.put(resource.getAction(), new org.springframework.security.access.SecurityConfig(resource.getaResourceId() + ":" + resource.getResourceName()));
+                }
+                return map;
+            }
+        };
     }
 }
