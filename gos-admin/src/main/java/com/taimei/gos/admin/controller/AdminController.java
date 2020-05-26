@@ -1,5 +1,6 @@
 package com.taimei.gos.admin.controller;
 
+import com.taimei.gos.admin.dto.AdminLoginParam;
 import com.taimei.gos.admin.dto.AdminParam;
 import com.taimei.gos.admin.service.AdminService;
 import com.taimei.gos.common.api.CommonResult;
@@ -41,8 +42,8 @@ public class AdminController {
     @ApiOperation(value = "登录以后返回token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult login(@RequestBody AdminParam adminParam, BindingResult result) {
-        String token = adminService.login(adminParam.getUserName(), adminParam.getPassword());
+    public CommonResult login(@RequestBody AdminLoginParam adminLoginParam, BindingResult result) {
+        String token = adminService.login(adminLoginParam.getUsername(), adminLoginParam.getPassword());
         if (token == null) {
             return CommonResult.validateFailed("用户名或密码错误");
         }
