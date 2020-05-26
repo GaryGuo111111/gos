@@ -8,6 +8,7 @@ class GosAdminApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println(System.currentTimeMillis()/1000);
     }
 
 }
