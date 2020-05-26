@@ -15,7 +15,7 @@ import javax.validation.constraints.NotEmpty;
 public class AdminParam {
     @ApiModelProperty(value = "手机号码", required = true)
     @NotEmpty(message = "手机号码")
-    private String username;
+    private String userName;
     @ApiModelProperty(value = "密码", required = true)
     @NotEmpty(message = "密码不能为空")
     private String password;
