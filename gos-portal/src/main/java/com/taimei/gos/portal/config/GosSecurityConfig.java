@@ -1,5 +1,6 @@
 package com.taimei.gos.portal.config;
 
+import com.taimei.gos.portal.service.UserService;
 import com.taimei.gos.security.config.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,14 +17,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class GosSecurityConfig extends SecurityConfig {
-//
-//    @Autowired
-//    private UmsMemberService memberService;
-//
-//    @Override
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        //获取登录用户信息
-//        return username -> memberService.loadUserByUsername(username);
-//    }
+
+    @Autowired
+    private UserService userService;
+
+    @Override
+    @Bean
+    public UserDetailsService userDetailsService() {
+        //获取登录用户信息
+        return username -> userService.loadUserByUsername(username);
+    }
 }
