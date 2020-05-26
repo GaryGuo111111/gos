@@ -38,6 +38,7 @@
         <lombok.version>1.18.10</lombok.version>
         <spring-data-commons.version>2.3.0.RELEASE</spring-data-commons.version>
         <jjwt.version>0.9.1</jjwt.version>
+        <logstash-logback.version>4.8</logstash-logback.version>
         <gos-common.version>0.0.1-SNAPSHOT</gos-common.version>
         <gos-mbg.version>0.0.1-SNAPSHOT</gos-mbg.version>
         <gos-security.version>0.0.1-SNAPSHOT</gos-security.version>
@@ -166,6 +167,12 @@
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
+            </dependency>
+            <!--集成logstash-->
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash-logback.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
