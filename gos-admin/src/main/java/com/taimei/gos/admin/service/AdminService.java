@@ -111,7 +111,14 @@ public class AdminService {
         String token = null;
         //密码需要客户端加密后传递
         try {
-            UserDetails userDetails = loadUserByUsername(username);
+            AdminExample example = new AdminExample();
+            example.createCriteria().andUserNameEqualTo(username);
+            List<Admin> admins = adminMapper.selectByExample(example);
+            if(admins.size() ==0 ){
+                throw new UsernameNotFoundException("用户不存在");
+            }
+            List<AResource> resourceList = getResourceList(admins.get(0).getAdminId());
+            AdminUserDetails userDetails = new AdminUserDetails(admins.get(0), resourceList);
             if(!passwordEncoder.matches(password,userDetails.getPassword())){
                 throw new BadCredentialsException("密码不正确");
             }
