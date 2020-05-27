@@ -43,6 +43,7 @@ public class AdminController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult login(@RequestBody AdminLoginParam adminLoginParam, BindingResult result) {
+        int a = 1/0;
         String token = adminService.login(adminLoginParam.getUserName(), adminLoginParam.getPassword());
         if (token == null) {
             return CommonResult.validateFailed("用户名或密码错误");
