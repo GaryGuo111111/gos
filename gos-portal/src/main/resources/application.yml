@@ -2,6 +2,7 @@ spring:
   profiles:
     active: dev #默认为开发环境
 
+
 mybatis:
   mapper-locations:
     - classpath:dao/*.xml
@@ -27,3 +28,5 @@ secure:
       - /webjars/springfox-swagger-ui/**
       - /druid/**
       - /actuator/**
+      - /helloWorld/**
+
