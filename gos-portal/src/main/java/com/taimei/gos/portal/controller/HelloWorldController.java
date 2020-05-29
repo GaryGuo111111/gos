@@ -3,6 +3,8 @@ package com.taimei.gos.portal.controller;
 import com.taimei.gos.common.api.CommonResult;
 import com.taimei.gos.mapper.AdminMapper;
 import com.taimei.gos.model.Admin;
+
+import com.taimei.gos.portal.config.ExtRocketMQTemplate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.rocketmq.client.producer.SendResult;
@@ -22,6 +24,9 @@ public class HelloWorldController {
 
     @Resource
     private RocketMQTemplate rocketMQTemplate;
+
+    @Resource(name = "extRocketMQTemplate")
+    private RocketMQTemplate extRocketMQTemplate;
     @Autowired
     private AdminMapper adminMapper;
 
