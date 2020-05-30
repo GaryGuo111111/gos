@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taimei.gos.search.dao.EsProductDao">
+
+    <resultMap id="esProductListMap" type="com.taimei.gos.search.domain.EsProduct" autoMapping="true">
+    </resultMap>
+    <select id="getAllEsProductList" resultMap="esProductListMap">
+        select
+            goods_id goodsId,
+            goods_category_id goodsCategoryId,
+            brand brand,
+            profit_id profitId,
+            ui_module_area_id UIModuleAreaId,
+            name name,
+            sort sort,
+            pics pics,
+            market_price marketPrice,
+            discount_price discountPrice,
+            stock stock,
+            show_time showTime,
+            end_time endTime,
+            introduction introduction
+        from goods
+        <if test="id!=null">
+            where goods_id=#{id}
+        </if>
+    </select>
+</mapper>

@@ -27,3 +27,6 @@ secure:
       - /webjars/springfox-swagger-ui/**
       - /druid/**
       - /actuator/**
+      - /esProduct/**
+
+#Elasticsearch启动需要很大的内存，修改docker的内存大小
