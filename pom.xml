@@ -15,6 +15,7 @@
         <module>gos-mbg</module>
         <module>gos-security</module>
         <module>gos-portal</module>
+        <module>gos-search</module>
     </modules>
 
     <parent>

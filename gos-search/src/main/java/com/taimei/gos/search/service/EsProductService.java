@@ -1,8 +1,11 @@
 package com.taimei.gos.search.service;
 
+import com.github.pagehelper.util.StringUtil;
 import com.taimei.gos.search.dao.EsProductDao;
 import com.taimei.gos.search.domain.EsProduct;
 import com.taimei.gos.search.repository.EsProductRepository;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +13,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -76,8 +82,21 @@ public class EsProductService  {
 
     public Page<EsProduct> search(String keyword, Integer pageNum, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return productRepository.findByName(keyword, pageable);
+//        return productRepository.findByName(keyword, pageable);
+        NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
+        //分页
+        nativeSearchQueryBuilder.withPageable(pageable);
+        //过滤
+        if (StringUtil.isNotEmpty(keyword)) {
+            BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+            boolQueryBuilder.must(QueryBuilders.termQuery("name", keyword));
+            nativeSearchQueryBuilder.withFilter(boolQueryBuilder);
+        }
+        NativeSearchQuery searchQuery = nativeSearchQueryBuilder.build();
+//        LOGGER.info("DSL:{}", searchQuery.getQuery().toString());
+        return productRepository.search(searchQuery);
     }
+
 
 
 }
