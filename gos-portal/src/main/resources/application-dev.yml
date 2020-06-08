@@ -1,5 +1,6 @@
 server:
   port: 1000
+  shutdown: graceful
 
 spring:
   datasource:
@@ -26,6 +27,6 @@ redis:
 # 日志配置
 logging:
   level:
-    com.taimei.gos.mapper: debug
+    com.taimei.gos: debug
     com.taimei.gos.portal.dao: debug
 

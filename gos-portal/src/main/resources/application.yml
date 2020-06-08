@@ -30,3 +30,8 @@ secure:
       - /actuator/**
       - /helloWorld/**
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
