@@ -63,6 +63,6 @@ public class HelloWorldServiceTest {
     }
 
     public void test() {
-        System.out.println("merge dev");
+        System.out.println("merge dev 2");
     }
 }
